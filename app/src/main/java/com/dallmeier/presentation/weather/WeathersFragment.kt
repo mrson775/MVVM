@@ -3,6 +3,7 @@ package com.dallmeier.presentation.weather
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.dallmeier.core.MainApplication
 import com.dallmeier.myapplication.BR
 import com.dallmeier.myapplication.R
 import com.dallmeier.myapplication.databinding.FragmentWeathersBinding
@@ -26,13 +27,13 @@ import dagger.hilt.android.AndroidEntryPoint
     private fun initRecycleView() {
         mBinding?.run {
 
-            adapter = WeathersAdapter()
+            adapter = WeathersAdapter(MainApplication.applicationContext())
             if (adapter?.hasObservers() == false) adapter?.setHasStableIds(true)
             rvWeather.adapter = adapter
         }
         with(mViewModel) {
-            this?.photosData?.observe(viewLifecycleOwner, Observer {
-                adapter?.photoList = it
+            this?.weathersData?.observe(viewLifecycleOwner, Observer {
+                adapter?.weatherList = it
             })
         }
     }

@@ -12,30 +12,30 @@ import com.google.gson.reflect.TypeToken
 
 /**
  * This class is responsible to choose a source for fetching data
- * [photosLocalDataSource] to access/modify local data
- * [photosRemoteDataSource] to access/update remote data
+ * [weathersLocalDataSource] to access/modify local data
+ * [weathersRemoteDataSource] to access/update remote data
  *
  *
  * */
 class WeathersRepositoryImp constructor(
-    private val photosRemoteDataSource: WeathersRemoteDataSource,
-    private val photosLocalDataSource: WeathersLocalDataSource,
+    private val weathersRemoteDataSource: WeathersRemoteDataSource,
+    private val weathersLocalDataSource: WeathersLocalDataSource,
     private val gson: Gson
 ) : WeatherRepository {
 
     override suspend fun getWeatherList(networkAvailability: Boolean): List<WeatherEntity>? {
         if (networkAvailability) {
-            photosRemoteDataSource.getWeathers().also {
+            weathersRemoteDataSource.getWeathers().also {
                 val mResArr: JsonArray = it.getAsJsonArray("dataseries")
                 val type = object : TypeToken<List<WeatherResponse?>?>() {}.type
                 val weathers: List<WeatherResponse> = gson.fromJson(mResArr, type)
-                photosLocalDataSource.insertWeatherList(weathers)
+                weathersLocalDataSource.insertWeatherList(weathers)
                 return weathers.map { weatherResponse ->
                     weatherResponse.toDomain()
                 }
             }
 
-        } else return photosLocalDataSource.getWeathers()?.map {
+        } else return weathersLocalDataSource.getWeathers()?.map {
             it.toDomain()
         }
 

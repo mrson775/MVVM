@@ -4,7 +4,7 @@ import androidx.room.*
 import com.dallmeier.data.model.WeatherResponse
 
 /**
- * Provides access to Photo underlying database
+ * Provides access to Weather underlying database
  * */
 @Dao
 interface WeatherDao {

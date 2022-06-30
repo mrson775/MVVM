@@ -31,11 +31,11 @@ class AppModule {
     @Provides
     @Singleton
     fun createWeatherRepository(
-        photosRemoteDataSource: WeathersRemoteDataSource,
-        photosLocalDataSource: WeathersLocalDataSource,
+        weathersRemoteDataSource: WeathersRemoteDataSource,
+        weathersLocalDataSource: WeathersLocalDataSource,
         gson: Gson
     ): WeatherRepository {
-        return WeathersRepositoryImp(photosRemoteDataSource, photosLocalDataSource, gson)
+        return WeathersRepositoryImp(weathersRemoteDataSource, weathersLocalDataSource, gson)
     }
 
     @Provides

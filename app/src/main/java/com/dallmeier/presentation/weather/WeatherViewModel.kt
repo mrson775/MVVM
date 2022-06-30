@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class WeatherViewModel @Inject constructor (
     weatherUseCase: GetWeatherUseCase) : BaseViewModel() {
-    var photosData = MutableLiveData<List<Weather>>()
+    var weathersData = MutableLiveData<List<Weather>>()
     var weatherUseCase = weatherUseCase;
 
     fun getWeathers(isNetworkAvailable : Boolean){
@@ -25,7 +25,7 @@ class WeatherViewModel @Inject constructor (
             override fun onSuccess(result: List<WeatherEntity>?) {
                 Log.d(TAG, "onSuccess() called with: result = ${result?.size}")
                 hideLoadingProgressBar()
-                photosData.value = result?.map {
+                weathersData.value = result?.map {
                     it.toUI()
                 }
             }
@@ -38,6 +38,6 @@ class WeatherViewModel @Inject constructor (
     }
 
     companion object{
-        private const val TAG = "PhotosViewModel"
+        private const val TAG = "WeathersViewModel"
     }
 }
