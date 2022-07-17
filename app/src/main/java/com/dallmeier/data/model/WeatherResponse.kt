@@ -12,7 +12,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class WeatherResponse(
     var timepoint: Int,
-    @PrimaryKey var id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     var cloudcover: Int,
     var url: Int,
     var transparency: Int,
